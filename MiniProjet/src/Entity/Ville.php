@@ -32,17 +32,11 @@ class Ville
     /**
      * @ORM\OneToMany(targetEntity=Trajet::class, mappedBy="villeDepart", orphanRemoval=true)
      */
-    private $depart;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Trajet::class, mappedBy="villeArrivee", orphanRemoval=true)
-     */
-    private $terminus;
+    private $departs;
 
     public function __construct()
     {
-        $this->depart = new ArrayCollection();
-        $this->terminus = new ArrayCollection();
+        $this->departs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -77,15 +71,15 @@ class Ville
     /**
      * @return Collection<int, Trajet>
      */
-    public function getDepart(): Collection
+    public function getDeparts(): Collection
     {
-        return $this->depart;
+        return $this->departs;
     }
 
     public function addDepart(Trajet $depart): self
     {
-        if (!$this->depart->contains($depart)) {
-            $this->depart[] = $depart;
+        if (!$this->departs->contains($depart)) {
+            $this->departs[] = $depart;
             $depart->setVilleDepart($this);
         }
 
@@ -94,40 +88,10 @@ class Ville
 
     public function removeDepart(Trajet $depart): self
     {
-        if ($this->depart->removeElement($depart)) {
+        if ($this->departs->removeElement($depart)) {
             // set the owning side to null (unless already changed)
             if ($depart->getVilleDepart() === $this) {
                 $depart->setVilleDepart(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Trajet>
-     */
-    public function getTerminus(): Collection
-    {
-        return $this->terminus;
-    }
-
-    public function addTerminu(Trajet $terminu): self
-    {
-        if (!$this->terminus->contains($terminu)) {
-            $this->terminus[] = $terminu;
-            $terminu->setVilleArrivee($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTerminu(Trajet $terminu): self
-    {
-        if ($this->terminus->removeElement($terminu)) {
-            // set the owning side to null (unless already changed)
-            if ($terminu->getVilleArrivee() === $this) {
-                $terminu->setVilleArrivee(null);
             }
         }
 

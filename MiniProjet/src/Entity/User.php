@@ -35,7 +35,7 @@ class User
     private $email;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $tel;
 
@@ -95,7 +95,7 @@ class User
         return $this->tel;
     }
 
-    public function setTel(?int $tel): self
+    public function setTel(int $tel): self
     {
         $this->tel = $tel;
 

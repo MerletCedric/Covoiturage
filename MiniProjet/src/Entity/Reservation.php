@@ -25,11 +25,6 @@ class Reservation
     private $nbPlaces;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $commentaire;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Trajet::class, inversedBy="reservations")
      */
     private $trajets;
@@ -38,7 +33,6 @@ class Reservation
     {
         $this->trajets = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -53,18 +47,6 @@ class Reservation
     public function setNbPlaces(int $nbPlaces): self
     {
         $this->nbPlaces = $nbPlaces;
-
-        return $this;
-    }
-
-    public function getCommentaire(): ?string
-    {
-        return $this->commentaire;
-    }
-
-    public function setCommentaire(?string $commentaire): self
-    {
-        $this->commentaire = $commentaire;
 
         return $this;
     }
