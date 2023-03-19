@@ -35,18 +35,18 @@ class User
     private $email;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $tel;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Trajet::class, mappedBy="passagers")
+     * @ORM\ManyToMany(targetEntity=Reservation::class, mappedBy="nom")
      */
-    private $trajets;
+    private $reservations;
 
     public function __construct()
     {
-        $this->trajets = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -90,12 +90,12 @@ class User
         return $this;
     }
 
-    public function getTel(): ?int
+    public function getTel(): ?string
     {
         return $this->tel;
     }
 
-    public function setTel(int $tel): self
+    public function setTel(string $tel): self
     {
         $this->tel = $tel;
 
@@ -103,27 +103,27 @@ class User
     }
 
     /**
-     * @return Collection<int, Trajet>
+     * @return Collection<int, Reservation>
      */
-    public function getTrajets(): Collection
+    public function getReservations(): Collection
     {
-        return $this->trajets;
+        return $this->reservations;
     }
 
-    public function addTrajet(Trajet $trajet): self
+    public function addReservation(Reservation $reservation): self
     {
-        if (!$this->trajets->contains($trajet)) {
-            $this->trajets[] = $trajet;
-            $trajet->addPassager($this);
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->addNom($this);
         }
 
         return $this;
     }
 
-    public function removeTrajet(Trajet $trajet): self
+    public function removeReservation(Reservation $reservation): self
     {
-        if ($this->trajets->removeElement($trajet)) {
-            $trajet->removePassager($this);
+        if ($this->reservations->removeElement($reservation)) {
+            $reservation->removeNom($this);
         }
 
         return $this;

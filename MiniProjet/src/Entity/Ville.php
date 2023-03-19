@@ -30,13 +30,19 @@ class Ville
     private $codePostal;
 
     /**
-     * @ORM\OneToMany(targetEntity=Trajet::class, mappedBy="villeDepart", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Trajet::class, mappedBy="villeDepart")
      */
     private $departs;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Trajet::class, mappedBy="villeArivee")
+     */
+    private $terminus;
 
     public function __construct()
     {
         $this->departs = new ArrayCollection();
+        $this->terminus = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -92,6 +98,36 @@ class Ville
             // set the owning side to null (unless already changed)
             if ($depart->getVilleDepart() === $this) {
                 $depart->setVilleDepart(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Trajet>
+     */
+    public function getTerminus(): Collection
+    {
+        return $this->terminus;
+    }
+
+    public function addTerminu(Trajet $terminu): self
+    {
+        if (!$this->terminus->contains($terminu)) {
+            $this->terminus[] = $terminu;
+            $terminu->setVilleArivee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTerminu(Trajet $terminu): self
+    {
+        if ($this->terminus->removeElement($terminu)) {
+            // set the owning side to null (unless already changed)
+            if ($terminu->getVilleArivee() === $this) {
+                $terminu->setVilleArivee(null);
             }
         }
 
