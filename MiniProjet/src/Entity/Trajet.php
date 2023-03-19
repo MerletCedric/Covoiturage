@@ -26,31 +26,10 @@ class Trajet
     private $villeDepart;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Ville::class)
+     * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="terminus")
      * @ORM\JoinColumn(nullable=false)
      */
     private $villeArrivee;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $conducteurs;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="trajets")
-     */
-    private $passagers;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $nbPlacesRestantes;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $modeleVoiture;
 
     /**
      * @ORM\Column(type="time")
@@ -58,14 +37,39 @@ class Trajet
     private $heureDepart;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Reservation::class, mappedBy="trajets")
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $reservations;
+    private $conducteur;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class)
+     */
+    private $passagers;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $dateDepart;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $modeleVoiture;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nbPlacesRestants;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Reservation::class, mappedBy="trajet", cascade={"persist", "remove"})
+     */
+    private $reservation;
 
     public function __construct()
     {
         $this->passagers = new ArrayCollection();
-        $this->reservations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -97,14 +101,26 @@ class Trajet
         return $this;
     }
 
-    public function getConducteurs(): ?User
+    public function getHeureDepart(): ?\DateTimeInterface
     {
-        return $this->conducteurs;
+        return $this->heureDepart;
     }
 
-    public function setConducteurs(?User $conducteurs): self
+    public function setHeureDepart(\DateTimeInterface $heureDepart): self
     {
-        $this->conducteurs = $conducteurs;
+        $this->heureDepart = $heureDepart;
+
+        return $this;
+    }
+
+    public function getConducteur(): ?User
+    {
+        return $this->conducteur;
+    }
+
+    public function setConducteur(?User $conducteur): self
+    {
+        $this->conducteur = $conducteur;
 
         return $this;
     }
@@ -133,14 +149,14 @@ class Trajet
         return $this;
     }
 
-    public function getNbPlacesRestantes(): ?int
+    public function getDateDepart(): ?\DateTimeInterface
     {
-        return $this->nbPlacesRestantes;
+        return $this->dateDepart;
     }
 
-    public function setNbPlacesRestantes(int $nbPlacesRestantes): self
+    public function setDateDepart(\DateTimeInterface $dateDepart): self
     {
-        $this->nbPlacesRestantes = $nbPlacesRestantes;
+        $this->dateDepart = $dateDepart;
 
         return $this;
     }
@@ -157,41 +173,31 @@ class Trajet
         return $this;
     }
 
-    public function getHeureDepart(): ?\DateTimeInterface
+    public function getNbPlacesRestants(): ?int
     {
-        return $this->heureDepart;
+        return $this->nbPlacesRestants;
     }
 
-    public function setHeureDepart(\DateTimeInterface $heureDepart): self
+    public function setNbPlacesRestants(int $nbPlacesRestants): self
     {
-        $this->heureDepart = $heureDepart;
+        $this->nbPlacesRestants = $nbPlacesRestants;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Reservation>
-     */
-    public function getReservations(): Collection
+    public function getReservation(): ?Reservation
     {
-        return $this->reservations;
+        return $this->reservation;
     }
 
-    public function addReservation(Reservation $reservation): self
+    public function setReservation(Reservation $reservation): self
     {
-        if (!$this->reservations->contains($reservation)) {
-            $this->reservations[] = $reservation;
-            $reservation->addTrajet($this);
+        // set the owning side of the relation if necessary
+        if ($reservation->getTrajet() !== $this) {
+            $reservation->setTrajet($this);
         }
 
-        return $this;
-    }
-
-    public function removeReservation(Reservation $reservation): self
-    {
-        if ($this->reservations->removeElement($reservation)) {
-            $reservation->removeTrajet($this);
-        }
+        $this->reservation = $reservation;
 
         return $this;
     }
