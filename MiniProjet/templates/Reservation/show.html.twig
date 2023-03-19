@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Détails de la reservation <i>{{ reservation.id }}</i>:</h1>
+    <div class="media" style="margin-top: 60px;">
+        <div class="media-body">
+            <div class="row">
+                <div class="col-sm-10">
+                    <h3 class="media-heading"><strong>{{}}</strong> <i>({{ reservation.heureDepart }})</i></h3>
+                </div>
+            </div>
+
+           {# <strong>Les détails du trajet : <strong>
+                <table class="table">
+                <thead>
+                <tr>
+                    <th>Nom et prénom du conducteur</th>
+                    <th>Nom et prénom du/des passager(s)</th>
+                    <th>Email</th>
+                    <th>Téléphone</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for reservation in reservation. %}
+                    <tr>
+                        <td><a href="#">{{ tuteur.nom }}</a></td>
+                        <td>{{ tuteur.prenom }}</td>
+                        <td>{{ tuteur.email }}</td>
+                        <td>{{ tuteur.telephone }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                </table> #}
+        </div>
+    </div>
+{% endblock %}
