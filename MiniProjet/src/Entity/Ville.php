@@ -35,7 +35,7 @@ class Ville
     private $departs;
 
     /**
-     * @ORM\OneToMany(targetEntity=Trajet::class, mappedBy="villeArivee")
+     * @ORM\OneToMany(targetEntity=Trajet::class, mappedBy="villeArrivee")
      */
     private $terminus;
 
