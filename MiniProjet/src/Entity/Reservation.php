@@ -20,18 +20,24 @@ class Reservation
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="reservations")
      */
-    private $nbPlaces;
+    private $nom;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Trajet::class, inversedBy="reservations")
+     * @ORM\OneToOne(targetEntity=Trajet::class, inversedBy="reservation", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $trajets;
+    private $trajet;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nbPlacesReservees;
 
     public function __construct()
     {
-        $this->trajets = new ArrayCollection();
+        $this->nom = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -39,38 +45,50 @@ class Reservation
         return $this->id;
     }
 
-    public function getNbPlaces(): ?int
-    {
-        return $this->nbPlaces;
-    }
-
-    public function setNbPlaces(int $nbPlaces): self
-    {
-        $this->nbPlaces = $nbPlaces;
-
-        return $this;
-    }
-
     /**
-     * @return Collection<int, Trajet>
+     * @return Collection<int, User>
      */
-    public function getTrajets(): Collection
+    public function getNom(): Collection
     {
-        return $this->trajets;
+        return $this->nom;
     }
 
-    public function addTrajet(Trajet $trajet): self
+    public function addNom(User $nom): self
     {
-        if (!$this->trajets->contains($trajet)) {
-            $this->trajets[] = $trajet;
+        if (!$this->nom->contains($nom)) {
+            $this->nom[] = $nom;
         }
 
         return $this;
     }
 
-    public function removeTrajet(Trajet $trajet): self
+    public function removeNom(User $nom): self
     {
-        $this->trajets->removeElement($trajet);
+        $this->nom->removeElement($nom);
+
+        return $this;
+    }
+
+    public function getTrajet(): ?Trajet
+    {
+        return $this->trajet;
+    }
+
+    public function setTrajet(Trajet $trajet): self
+    {
+        $this->trajet = $trajet;
+
+        return $this;
+    }
+
+    public function getNbPlacesReservees(): ?int
+    {
+        return $this->nbPlacesReservees;
+    }
+
+    public function setNbPlacesReservees(int $nbPlacesReservees): self
+    {
+        $this->nbPlacesReservees = $nbPlacesReservees;
 
         return $this;
     }
