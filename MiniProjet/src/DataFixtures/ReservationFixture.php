@@ -16,25 +16,22 @@ class ReservationFixture extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
-
         $reservation1 = new Reservation();
-        $reservation1->addNom($manager->merge($this->getReference('user2')))
-        ->setNbPlacesReservees(3)
-        ->setTrajet($manager->merge($this->getReference('trajet1')));
+        $reservation1->setNbPlacesReservees(2)
+        ->setTrajet($this->getReference('trajet1'))
+        ->addNom($this->getReference('user1'));
         $manager->persist($reservation1);
 
         $reservation2 = new Reservation();
-        $reservation2->addNom($manager->merge($this->getReference('user3')))
-        ->setNbPlacesReservees(2)
-        ->setTrajet($manager->merge($this->getReference('trajet2')));
+        $reservation2->setNbPlacesReservees(1)
+        ->setTrajet($this->getReference('trajet2'))
+        ->addNom($this->getReference('user3'));
         $manager->persist($reservation2);
 
         $reservation3 = new Reservation();
-        $reservation3->addNom($manager->merge($this->getReference('user4')))
-        ->setNbPlacesReservees(2)
-        ->setTrajet($manager->merge($this->getReference('trajet2')));
+        $reservation3->setNbPlacesReservees(4)
+        ->setTrajet($this->getReference('trajet3'))
+        ->addNom($this->getReference('user2'));
         $manager->persist( $reservation3);
 
         $manager->flush();
@@ -44,14 +41,12 @@ class ReservationFixture extends Fixture implements DependentFixtureInterface
         $this->addReference('reservation3', $reservation3);
 
     } 
-    /**
-    * @return array
-    */
-   public function getDependencies(): array
-   {
-       return [
-           TrajetFixtures::class,
-           UserFixtures::class,
-       ];
-   }
+    
+    public function getDependencies()
+    {
+        return [
+            TrajetFixture::class,
+            UserFixture::class,
+        ];
+    }
 }
