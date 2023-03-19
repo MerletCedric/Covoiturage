@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Détails du trajet <i>{{ trajet.villeDepart }} > {{trajet.villeArrivee}}</i>:</h1>
+    <div class="media" style="margin-top: 60px;">
+        <div class="media-body">
+            <div class="row">
+                <div class="col-sm-10">
+                    <h3 class="media-heading"><strong>{{ trajet.conducteur }}</strong> <i>({{ trajet.heureDepart }})</i></h3>
+                </div>
+            </div>
+
+            <p>
+                <strong>{{ trajet.modeleVoiture }}</strong>
+                <small> - <i>{{ trajet.passagers }}</i></small>
+            </p>
+
+            <p>{{ trajet.nbPlacesRestantes }}</p>
+        </div>
+    </div>
+{% endblock %}
