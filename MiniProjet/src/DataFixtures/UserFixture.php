@@ -20,36 +20,36 @@ class UserFixture extends Fixture
         // $manager->persist($product);
 
         $user1 = new User();
-        $user1->setNom('Cédric')
-        ->setPrenom('Merlet')
+        $user1->setNom('MERLET')
+        ->setPrenom('Cédric')
         ->setEmail('cedricmerlet@gmail.com')
         ->setTel('0320456955');
         $manager->persist($user1);
 
         $user2 = new User();
-        $user2->setNom('Manon')
-        ->setPrenom('Tancray')
+        $user2->setNom('TANCRAY')
+        ->setPrenom('Manon')
         ->setEmail('manontancray@gmail.com')
         ->setTel('2396564865');
         $manager->persist($user2);
 
         $user3 = new User();
-        $user3->setNom('Robert')
-        ->setPrenom('Miroit')
+        $user3->setNom('MIROIT')
+        ->setPrenom('Robert')
         ->setEmail('robertmiroit@gmail.com')
         ->setTel('0956478522');
         $manager->persist($user3);
 
         $user4 = new User();
-        $user4->setNom('Patricia')
-        ->setPrenom('couet')
+        $user4->setNom('COUET')
+        ->setPrenom('Patricia')
         ->setEmail('patriciatcouet@gmail.com')
         ->setTel('3265985645');
         $manager->persist($user4);
 
         $user5 = new User();
-        $user5->setNom('Paulette')
-        ->setPrenom('Carde')
+        $user5->setNom('CARDE')
+        ->setPrenom('Paulette')
         ->setEmail('paulettecarde@gmail.com')
         ->setTel('1323654899');
         $manager->persist($user5);

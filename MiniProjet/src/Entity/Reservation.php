@@ -40,11 +40,10 @@ class Reservation
         $this->nom = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function __toString()
     {
-        return $this->id;
+        return $this->trajet;
     }
-
     /**
      * @return Collection<int, User>
      */

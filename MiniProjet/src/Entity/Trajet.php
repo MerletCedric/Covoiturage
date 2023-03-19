@@ -60,7 +60,7 @@ class Trajet
     /**
      * @ORM\Column(type="integer")
      */
-    private $nbPlacesRestants;
+    private $nbPlacesVoiture;
 
     /**
      * @ORM\OneToOne(targetEntity=Reservation::class, mappedBy="trajet", cascade={"persist", "remove"})
@@ -173,14 +173,14 @@ class Trajet
         return $this;
     }
 
-    public function getNbPlacesRestants(): ?int
+    public function getnbPlacesVoiture(): ?int
     {
-        return $this->nbPlacesRestants;
+        return $this->nbPlacesVoiture;
     }
 
-    public function setNbPlacesRestants(int $nbPlacesRestants): self
+    public function setnbPlacesVoiture(int $nbPlacesVoiture): self
     {
-        $this->nbPlacesRestants = $nbPlacesRestants;
+        $this->nbPlacesVoiture = $nbPlacesVoiture;
 
         return $this;
     }

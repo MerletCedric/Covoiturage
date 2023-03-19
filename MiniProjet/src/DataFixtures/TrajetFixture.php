@@ -21,17 +21,17 @@ class TrajetFixture extends Fixture implements DependentFixtureInterface
         ->setVilleArrivee($manager->merge($this->getReference('ville6')))
         ->setConducteur($manager->merge($this->getReference('user1')))
         ->setDateDepart(new \DateTime('28-11-2003'))
-        ->setNbPlacesRestants(2)
         ->setModeleVoiture('Clio campus 2')
+        ->setNbPlacesVoiture(4)
         ->setHeureDepart(new \DateTime('15:23'));
         $manager->persist($trajet1);
 
         $trajet2 = new Trajet();
         $trajet2->setVilleDepart($manager->merge($this->getReference('ville5')))
         ->setVilleArrivee($manager->merge($this->getReference('ville3')))
-        ->setConducteur($manager->merge($this->getReference('user4')))
+        ->setConducteur($manager->merge($this->getReference('user2')))
         ->setDateDepart(new \DateTime('02-06-2020'))
-        ->setNbPlacesRestants(0)
+        ->setnbPlacesVoiture(4)
         ->setModeleVoiture('Bugatti Veyron 16.4')
         ->setHeureDepart(new \DateTime('02:00'));
         $manager->persist($trajet2);
@@ -39,9 +39,9 @@ class TrajetFixture extends Fixture implements DependentFixtureInterface
         $trajet3 = new Trajet();
         $trajet3->setVilleDepart($manager->merge($this->getReference('ville2')))
         ->setVilleArrivee($manager->merge($this->getReference('ville1')))
-        ->setConducteur($manager->merge($this->getReference('user1')))
+        ->setConducteur($manager->merge($this->getReference('user3')))
         ->setDateDepart(new \DateTime('02-06-2020'))
-        ->setNbPlacesRestants(0)
+        ->setnbPlacesVoiture(4)
         ->setModeleVoiture('2021 Tesla Model 3')
         ->setHeureDepart(new \DateTime('02:00'));
         $manager->persist($trajet3);

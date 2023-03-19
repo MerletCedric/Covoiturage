@@ -9,11 +9,13 @@
             <li class="list-group-item">
                 <div>
                     <a href="{{path('trajet.show', {id:trajet.id})}}">
-                        <strong>{{trajet.conducteur}}</strong> {{trajet.heureDepart}}
+                        <strong>{{trajet.conducteur}}</strong> 
+                        {{trajet.dateDepart|date('d/m/Y')}} 
+                        {{trajet.heureDepart|date('h:m:s')}}
                     </a> 
                 </div>    
                 {{trajet.villeDepart}} > {{trajet.villeArrivee}}
-                {{trajet.nbPlacesRestantes}}
+                {{trajet.nbPlacesVoiture}}
             </li>
         {% endfor %}
     </ul>

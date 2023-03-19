@@ -6,16 +6,18 @@
         <div class="media-body">
             <div class="row">
                 <div class="col-sm-10">
-                    <h3 class="media-heading"><strong>{{ trajet.conducteur }}</strong> <i>({{ trajet.heureDepart }})</i></h3>
+                    <h3 class="media-heading"><strong>{{ trajet.conducteur }}</strong> <i>({{ trajet.heureDepart|date('h:m:s') }})</i></h3>
                 </div>
             </div>
 
             <p>
                 <strong>{{ trajet.modeleVoiture }}</strong>
-                <small> - <i>{{ trajet.passagers }}</i></small>
+                {% for passager in trajet.passagers %}
+                    {{ passager.prenom }}
+                {% endfor %}
             </p>
 
-            <p>{{ trajet.nbPlacesRestantes }}</p>
+            <p>Nombre de place dans la voiture : {{ trajet.nbPlacesVoiture }}</p>
         </div>
     </div>
 {% endblock %}

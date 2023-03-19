@@ -34,7 +34,7 @@ class TrajetController extends AbstractController
     }
     /**
     * Chercher et afficher un stage.
-    * @Route("/trajet/{id}", name="stage.show", requirements={"id" = "\d+"})
+    * @Route("/trajet/{id}", name="trajet.show", requirements={"id" = "\d+"})
     * @param Stage $stage
     * @return Response
     */
